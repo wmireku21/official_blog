@@ -1,0 +1,11 @@
+a {
+    color: white;
+}
+
+a:hover {
+    color: white;
+    text-decoration: none;
+    transform: scale(1.05);
+    transition: all .4s ease-in-out;  
+  }
+  
