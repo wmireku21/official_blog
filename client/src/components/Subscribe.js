@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {Component} from 'react';
 
 import { Button, Form, FormGroup, Label, Input, Formtext, Container, Row, Col } from 'reactstrap';
@@ -15,13 +16,31 @@ class Subscribe extends Component {
         }
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
 
     }
 
     handleChange = e => {
         this.setState({
             [e.target.name]: e.target.value
+        })
+    }
+
+    handleSubmit = e => {
+        e.preventDefault();
+
+        let newSubscriber = JSON.stringify({
+            name: this.state.name,
+            email: this.state.email
+        })
+
+        axios.post('/api/subscribers', newSubscriber, {headers:{"Content-Type" : "application/json"}})
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err));
+        
+        this.setState({
+            name: '',
+            email: ''
         })
     }
 
@@ -36,7 +55,7 @@ class Subscribe extends Component {
                         </Col>
                         <Col>
                             <p>Be first to read the latest blog or hear about the lastest updates! </p>
-                            <Form>
+                            <Form onClick={this.}>
                                 <FormGroup>
                                     <Label for="name">Name</Label>
                                     <Input type="text" id="name" placeholder="Full Name" required />

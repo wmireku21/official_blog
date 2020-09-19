@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {login} from '../../actions/authActions';
 import { clearErrors} from '../../actions/errorActions';
+import RegisterModal from './RegisterModal';
 
 class LoginModal extends Component {
     state = {
@@ -78,14 +79,14 @@ class LoginModal extends Component {
         return(
             <div>
                 <NavLink onClick={this.toggle} href="#">
-                    Login
+                    Sign In
                 </NavLink>
                     
                 <Modal 
                     isOpen={this.state.modal}
                     toggle={this.toggle}
                 >
-                    <ModalHeader toggle={this.toggle}> Login </ModalHeader>
+                    <ModalHeader toggle={this.toggle}> Sign In </ModalHeader>
                     <ModalBody>
                         {this.state.msg ? (
                             <Alert color="danger">{this.state.msg} </Alert>
@@ -118,7 +119,7 @@ class LoginModal extends Component {
                                     style={{marginTop: '2rem'}}
                                     block
                                     >
-                                    Login
+                                    Sign In
                                 </Button>
                             </FormGroup>
                         </Form>
