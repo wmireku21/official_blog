@@ -1,17 +1,45 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
-import {Jumbotron, Container, Row, Col, Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
+import {
+    Jumbotron, 
+    Container, 
+    Row, 
+    Col, 
+    Button, 
+    Modal, 
+    ModalHeader, 
+    ModalBody,
+    Card,
+
+} 
+from 'reactstrap';
 
 class Blog extends Component {
 
+
     state = {
-        modal: false
+        modal: false,
+        quote: []
     }
 
     toggle = () => {
         this.setState({
             modal: !this.state.modal
         })
+    }
+
+    componentDidMount() {
+        const url = 'https://quotes.rest/qod?language=en'
+
+        axios.get(url)
+            .then((response) => {
+                this.setState({
+                    quote: response.data.contents.quotes
+                })
+            })
+            .catch((error) => console.log(error));
+        
     }
 
     render() {
@@ -35,7 +63,18 @@ class Blog extends Component {
                                 </Modal>
                             </Jumbotron>
                         </Col>
-                        <Col lg="4"></Col>
+                        <Col lg="4">
+                            <Card>
+                                <h4 style={{textAlign: 'center', paddingTop: '10px'}}>Quote of the Day</h4>
+                                <hr className="my-2"/>
+                                {this.state.quote.map((quote) => 
+                                    <div key={quote.id}>
+                                        <p style={{textAlign: 'center', padding: '0 10px'}}>{`"${quote.quote}"`}</p>
+                                        <h6 style={{paddingLeft: '20px'}}><i> - {quote.author}</i></h6>
+                                    </div>
+                                )}
+                            </Card>
+                        </Col>
                     </Row>
                 </Container>
             </div>

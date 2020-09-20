@@ -55,7 +55,7 @@ class Subscribe extends Component {
                         </Col>
                         <Col>
                             <p>Be first to read the latest blog or hear about the lastest updates! </p>
-                            <Form onClick={this.}>
+                            <Form onClick={this.handleSubmit}>
                                 <FormGroup>
                                     <Label for="name">Name</Label>
                                     <Input type="text" id="name" placeholder="Full Name" required />
